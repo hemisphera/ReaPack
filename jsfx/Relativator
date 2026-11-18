@@ -1,0 +1,50 @@
+desc:Relativator
+// @author hemisphera
+// @version 1.0
+// @changelog Initial release
+
+slider1:8<0,8,1>Multiplier
+slider2:14<0,120,1>Base CC Number
+slider3:0<0,127,1>CC +0 Value
+slider4:0<0,127,1>CC +1 Value
+slider5:0<0,127,1>CC +2 Value
+slider6:0<0,127,1>CC +3 Value
+slider7:0<0,127,1>CC +4 Value
+slider8:0<0,127,1>CC +5 Value
+slider9:0<0,127,1>CC +6 Value
+slider10:0<0,127,1>CC +7 Value
+
+@init
+// Create a persistent array to hold the float values for the 8 CCs
+// We use 8 slots, initialized to 0
+float_values = 0;
+
+@slider
+i = 0;
+loop(8,
+  float_values[i] = slider(i + 3);
+  i += 1;
+);
+
+@block
+while (midirecv(offset, msg1, msg2, msg3)) (
+  status = msg1 & $xF0;
+  (status == $xB0 && msg2 >= slider2 && msg2 <= slider2 + 7) ? (
+    idx = msg2 - slider2;
+    val = msg3;
+    
+    // Decode two's complement: 1..63 = +1..+63, 64..127 = -64..-1, 0 = no change
+    step = val < 64 ? val : val - 128;
+    float_values[idx] += (slider1 * step) / 8;
+    
+    // Explicit Clamping
+    float_values[idx] = min(max(float_values[idx], 0), 127);
+    
+    // Update the slider
+    new_int = floor(float_values[idx] + 0.5);
+    slider(idx + 3) = new_int;
+    sliderchange(slider(idx + 3));
+  ) : (
+    midisend(offset, msg1, msg2, msg3);
+  );
+);
