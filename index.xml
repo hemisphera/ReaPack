@@ -3,4 +3,18 @@
   <metadata>
     <description><![CDATA[{\rtf1\ansi Hemisphera ReaPack repository.}]]></description>
   </metadata>
+  <category name="Extensions">
+    <reapack name="reaper_ReapletonLink.ext" type="extension" desc="ReapletonLink">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi Headless REAPER extension that bridges REAPER's tempo, transport and timeline position into an Ableton Link session (REAPER is the master).}]]></description>
+        <link rel="website">https://github.com/hemisphera/ReapletonLink</link>
+      </metadata>
+      <version name="0.0.1" author="hemisphera" time="2026-11-18T12:20:14Z">
+        <changelog><![CDATA[**Full Changelog**: https://github.com/hemisphera/ReapletonLink/compare/v1.0.0...v0.0.1]]></changelog>
+        <source platform="win64" file="reaper_ReapletonLink.dll" hash="1220f4c978360c8fd3a0bf3f24bd69fdb79c08b9c4187e863cece03dfd2d3b7d2410">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.1/reaper_ReapletonLink.dll</source>
+        <source platform="darwin" file="reaper_ReapletonLink.dylib" hash="12208c4adbb9c4677781527722939b986ca47f789a80153f93c05a6b7f96d8d1ecfa">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.1/reaper_ReapletonLink.dylib</source>
+        <source platform="linux64" file="reaper_ReapletonLink.so" hash="1220812bdd1f641f4e8ae2fe2a3cdd371c323b105924b760d9293a3d671ee696126e">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.1/reaper_ReapletonLink.so</source>
+      </version>
+    </reapack>
+  </category>
 </index>

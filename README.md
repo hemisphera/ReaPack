@@ -23,6 +23,23 @@ gem install reapack-index
 reapack-index --commit   # scan history, update index.xml and commit it
 ```
 
+## Packages built from GitHub releases
+
+Binary packages (e.g. REAPER extensions) are not stored here; their index
+entries point at the assets of the upstream GitHub release. They are configured
+in `tools/sources.json` (repo, category, package name, asset → platform map)
+and updated with:
+
+```powershell
+./tools/Update-FromRelease.ps1                         # add the latest release of every source
+./tools/Update-FromRelease.ps1 ReapletonLink           # just one source
+./tools/Update-FromRelease.ps1 ReapletonLink -Tag v1.0.0 -Force   # (re)index a specific tag
+./tools/Update-FromRelease.ps1 -DryRun                 # print the resulting index.xml
+./tools/Update-FromRelease.ps1 -Commit                 # also commit index.xml
+```
+
+Releases already in the index are skipped. Requires PowerShell 7+. Set `$env:GITHUB_TOKEN` to avoid API rate limits.
+
 ## Importing in REAPER
 
 Extensions → ReaPack → Import repositories… and paste the raw URL of

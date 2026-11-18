@@ -1,0 +1,16 @@
+{
+  "ReapletonLink": {
+    "github": "hemisphera/ReapletonLink",
+    "category": "Extensions",
+    "package": "reaper_ReapletonLink.ext",
+    "type": "extension",
+    "author": "hemisphera",
+    "description": "ReapletonLink",
+    "about": "Headless REAPER extension that bridges REAPER's tempo, transport and timeline position into an Ableton Link session (REAPER is the master).",
+    "assets": {
+      "reaper_ReapletonLink.dll": "win64",
+      "reaper_ReapletonLink.dylib": "darwin",
+      "reaper_ReapletonLink.so": "linux64"
+    }
+  }
+}
