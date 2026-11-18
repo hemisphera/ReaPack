@@ -16,29 +16,40 @@ starting with a ReaPack metadata header:
 
 ## Updating the index
 
-`index.xml` is maintained with [reapack-index](https://github.com/cfillion/reapack-index):
+`index.xml` is updated with `tools/Update-Index.ps1` (PowerShell 7+), which
+handles two kinds of packages:
 
-```sh
-gem install reapack-index
-reapack-index --commit   # scan history, update index.xml and commit it
-```
+- **JSFX** in `jsfx/`: each file is a package; its version, author, changelog
+  and about text come from the ReaPack header at the top of the file:
 
-## Packages built from GitHub releases
+  ```
+  desc:My effect
+  // @author hemisphera
+  // @version 1.1
+  // @changelog Fixed something
+  //   (lines indented by 2+ spaces continue a tag)
+  // @about Longer description
+  ```
 
-Binary packages (e.g. REAPER extensions) are not stored here; their index
-entries point at the assets of the upstream GitHub release. They are configured
-in `tools/sources.json` (repo, category, package name, asset → platform map)
-and updated with:
+  Sources point at the file in the commit that last changed it, so commit (and
+  push) the file before indexing it. Files with uncommitted changes are skipped.
+  Bump `@version` for every change; the script warns if a file changed but its
+  version is already indexed.
+
+- **Binary packages built from GitHub releases** (e.g. REAPER extensions): not
+  stored here; their entries point at the assets of the upstream GitHub release.
+  They are configured in `tools/sources.json` (repo, category, package name,
+  asset → platform map). Set `$env:GITHUB_TOKEN` to avoid API rate limits.
 
 ```powershell
-./tools/Update-FromRelease.ps1                         # add the latest release of every source
-./tools/Update-FromRelease.ps1 ReapletonLink           # just one source
-./tools/Update-FromRelease.ps1 ReapletonLink -Tag v1.0.0 -Force   # (re)index a specific tag
-./tools/Update-FromRelease.ps1 -DryRun                 # print the resulting index.xml
-./tools/Update-FromRelease.ps1 -Commit                 # also commit index.xml
+./tools/Update-Index.ps1                          # index all JSFX and the latest release of every source
+./tools/Update-Index.ps1 Noteholder,ReapletonLink # just these packages
+./tools/Update-Index.ps1 ReapletonLink -Tag v1.0.0 -Force   # (re)index a specific release tag
+./tools/Update-Index.ps1 -DryRun                  # print the resulting index.xml
+./tools/Update-Index.ps1 -Commit                  # also commit index.xml
 ```
 
-Releases already in the index are skipped. Requires PowerShell 7+. Set `$env:GITHUB_TOKEN` to avoid API rate limits.
+Versions already in the index are skipped unless `-Force` is given.
 
 ## Importing in REAPER
 
