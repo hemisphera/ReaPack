@@ -16,6 +16,24 @@
         <source platform="linux64" file="reaper_ReapletonLink.so" hash="1220812bdd1f641f4e8ae2fe2a3cdd371c323b105924b760d9293a3d671ee696126e">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.1/reaper_ReapletonLink.so</source>
       </version>
     </reapack>
+    <reapack name="reaper_Hulp.ext" type="extension" desc="Hulp">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi Hulp is a live-performance helper for the REAPER DAW. It turns a REAPER project into a set of songs, drives a record-then-loop workflow during playback, and streams the session state over OSC to a browser dashboard that you can keep on a second screen or a phone.}]]></description>
+        <link rel="website">https://github.com/hemisphera/Hsp.Hulp</link>
+      </metadata>
+      <version name="0.0.1" author="hemisphera" time="2026-11-18T16:29:08Z">
+        <changelog><![CDATA[## What's Changed
+* Dev apt by @hemisphera in https://github.com/hemisphera/Hsp.Hulp/pull/1
+
+## New Contributors
+* @hemisphera made their first contribution in https://github.com/hemisphera/Hsp.Hulp/pull/1
+
+**Full Changelog**: https://github.com/hemisphera/Hsp.Hulp/commits/v0.0.1]]></changelog>
+        <source platform="win64" file="reaper_hulp.dll" hash="1220e617d6af0f75c974f67b5f16f2dad28b92d50b36d7e0dff4fb5cb17c23a0f8f4">https://github.com/hemisphera/Hsp.Hulp/releases/download/v0.0.1/reaper_hulp.dll</source>
+        <source platform="darwin" file="reaper_hulp.dylib" hash="1220d0cd37e7800218579557b75f24c5877158af6d7b6f97f5643e91c41fae858c5f">https://github.com/hemisphera/Hsp.Hulp/releases/download/v0.0.1/reaper_hulp.dylib</source>
+        <source platform="linux64" file="reaper_hulp.so" hash="1220976ee09d120049c131c135543d076fc26677268bf9b61e6e9824cb7a19be9b04">https://github.com/hemisphera/Hsp.Hulp/releases/download/v0.0.1/reaper_hulp.so</source>
+      </version>
+    </reapack>
   </category>
   <category name="jsfx">
     <reapack name="Noteholder" type="effect" desc="Noteholder">

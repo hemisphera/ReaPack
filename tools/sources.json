@@ -12,5 +12,19 @@
       "reaper_ReapletonLink.dylib": "darwin",
       "reaper_ReapletonLink.so": "linux64"
     }
+  },
+  "Hulp": {
+    "github": "hemisphera/Hsp.Hulp",
+    "category": "Extensions",
+    "package": "reaper_Hulp.ext",
+    "type": "extension",
+    "author": "hemisphera",
+    "description": "Hulp",
+    "about": "Hulp is a live-performance helper for the REAPER DAW. It turns a REAPER project into a set of songs, drives a record-then-loop workflow during playback, and streams the session state over OSC to a browser dashboard that you can keep on a second screen or a phone.",
+    "assets": {
+      "reaper_hulp.dll": "win64",
+      "reaper_hulp.dylib": "darwin",
+      "reaper_hulp.so": "linux64"
+    }
   }
 }
