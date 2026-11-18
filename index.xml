@@ -11,9 +11,9 @@
       </metadata>
       <version name="0.0.1" author="hemisphera" time="2026-11-18T12:20:14Z">
         <changelog><![CDATA[**Full Changelog**: https://github.com/hemisphera/ReapletonLink/compare/v1.0.0...v0.0.1]]></changelog>
-        <source platform="win64" file="reaper_ReapletonLink.dll" hash="1220f4c978360c8fd3a0bf3f24bd69fdb79c08b9c4187e863cece03dfd2d3b7d2410">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.1/reaper_ReapletonLink.dll</source>
-        <source platform="darwin" file="reaper_ReapletonLink.dylib" hash="12208c4adbb9c4677781527722939b986ca47f789a80153f93c05a6b7f96d8d1ecfa">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.1/reaper_ReapletonLink.dylib</source>
-        <source platform="linux64" file="reaper_ReapletonLink.so" hash="1220812bdd1f641f4e8ae2fe2a3cdd371c323b105924b760d9293a3d671ee696126e">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.1/reaper_ReapletonLink.so</source>
+        <source platform="win64" file="reaper_ReapletonLink.dll">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.1/reaper_ReapletonLink.dll</source>
+        <source platform="darwin" file="reaper_ReapletonLink.dylib">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.1/reaper_ReapletonLink.dylib</source>
+        <source platform="linux64" file="reaper_ReapletonLink.so">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.1/reaper_ReapletonLink.so</source>
       </version>
     </reapack>
     <reapack name="reaper_Hulp.ext" type="extension" desc="Hulp">
@@ -29,9 +29,9 @@
 * @hemisphera made their first contribution in https://github.com/hemisphera/Hsp.Hulp/pull/1
 
 **Full Changelog**: https://github.com/hemisphera/Hsp.Hulp/commits/v0.0.1]]></changelog>
-        <source platform="win64" file="reaper_hulp.dll" hash="1220e617d6af0f75c974f67b5f16f2dad28b92d50b36d7e0dff4fb5cb17c23a0f8f4">https://github.com/hemisphera/Hsp.Hulp/releases/download/v0.0.1/reaper_hulp.dll</source>
-        <source platform="darwin" file="reaper_hulp.dylib" hash="1220d0cd37e7800218579557b75f24c5877158af6d7b6f97f5643e91c41fae858c5f">https://github.com/hemisphera/Hsp.Hulp/releases/download/v0.0.1/reaper_hulp.dylib</source>
-        <source platform="linux64" file="reaper_hulp.so" hash="1220976ee09d120049c131c135543d076fc26677268bf9b61e6e9824cb7a19be9b04">https://github.com/hemisphera/Hsp.Hulp/releases/download/v0.0.1/reaper_hulp.so</source>
+        <source platform="win64" file="reaper_hulp.dll">https://github.com/hemisphera/Hsp.Hulp/releases/download/v0.0.1/reaper_hulp.dll</source>
+        <source platform="darwin" file="reaper_hulp.dylib">https://github.com/hemisphera/Hsp.Hulp/releases/download/v0.0.1/reaper_hulp.dylib</source>
+        <source platform="linux64" file="reaper_hulp.so">https://github.com/hemisphera/Hsp.Hulp/releases/download/v0.0.1/reaper_hulp.so</source>
       </version>
     </reapack>
   </category>
@@ -39,13 +39,13 @@
     <reapack name="Noteholder" type="effect" desc="Noteholder">
       <version name="1.0" author="hemisphera" time="2026-11-18T13:07:31Z">
         <changelog><![CDATA[Initial release]]></changelog>
-        <source hash="1220807cfc837d5dd6a0c5dc785c0a15b45013f35c0ee825976257b442a308a37c90">https://github.com/hemisphera/ReaPack/raw/main/jsfx/Noteholder</source>
+        <source>https://github.com/hemisphera/ReaPack/raw/main/jsfx/Noteholder</source>
       </version>
     </reapack>
     <reapack name="Relativator" type="effect" desc="Relativator">
       <version name="1.0" author="hemisphera" time="2026-11-18T13:07:31Z">
         <changelog><![CDATA[Initial release]]></changelog>
-        <source hash="1220d086ee6eb7e2e153bd305b2a1a9dc968223ac464cbbb39949937927203637fab">https://github.com/hemisphera/ReaPack/raw/main/jsfx/Relativator</source>
+        <source>https://github.com/hemisphera/ReaPack/raw/main/jsfx/Relativator</source>
       </version>
     </reapack>
   </category>

@@ -20,11 +20,13 @@
     changes are skipped. Versions already in the index are skipped unless -Force.
 
     Releases: sources are defined in tools/sources.json. For each source the script fetches
-    the latest (or a given) GitHub release, downloads the configured assets to
-    compute their SHA-256 hashes, and adds a new <version> to the package in
-    index.xml that points at the release download URLs. Binaries are not copied
+    the latest (or a given) GitHub release and adds a new <version> to the package
+    in index.xml that points at the release download URLs. Binaries are not copied
     into this repository. Versions already in the index are skipped unless -Force
     is given.
+
+    Sources are written without hash attributes: ReaPack on Linux fails to install
+    hashed sources, and skipping hashes avoids downloading the assets.
 
     Set $env:GITHUB_TOKEN to avoid GitHub API rate limits.
 
@@ -71,17 +73,6 @@ function Get-GitHubHeaders {
 function Get-Release([string] $Repo, [string] $Tag) {
     $path = if ($Tag) { "releases/tags/$Tag" } else { 'releases/latest' }
     Invoke-RestMethod -Uri "$Api/repos/$Repo/$path" -Headers (Get-GitHubHeaders)
-}
-
-function Get-RemoteSha256([string] $Url) {
-    $tmp = New-TemporaryFile
-    try {
-        Invoke-WebRequest -Uri $Url -OutFile $tmp -Headers @{ 'User-Agent' = 'reapack-release-updater' } -UseBasicParsing | Out-Null
-        (Get-FileHash -Path $tmp -Algorithm SHA256).Hash.ToLowerInvariant()
-    }
-    finally {
-        Remove-Item $tmp -Force -ErrorAction SilentlyContinue
-    }
 }
 
 function ConvertTo-Version([string] $Tag) {
@@ -164,11 +155,10 @@ function Update-Source([xml] $Index, [string] $Name, $Cfg) {
     foreach ($p in $Cfg.assets.PSObject.Properties) {
         $asset = $assets[$p.Name]
         $url = $asset.browser_download_url
-        Write-Host "  downloading $($p.Name) ($($asset.size) bytes) for $($p.Value)"
+        Write-Host "  $($p.Name) for $($p.Value)"
         $src = Add-TextElement $ver 'source' $url
         $src.SetAttribute('platform', $p.Value)
         $src.SetAttribute('file', $p.Name)
-        $src.SetAttribute('hash', '1220' + (Get-RemoteSha256 $url))  # multihash: sha2-256, 32 bytes
     }
     $true
 }
@@ -226,23 +216,10 @@ function Update-Jsfx([xml] $Index, [System.IO.FileInfo] $File, [string] $Repo) {
     if (-not $commit) { Write-Warning "${name}: $rel is not committed, skipping"; return $false }
     $epoch = git -C $Root log -1 --format=%ct -- $rel
     $time = [DateTimeOffset]::FromUnixTimeSeconds([long] $epoch).UtcDateTime.ToString('yyyy-MM-ddTHH:mm:ssZ')
-    # Hash the committed blob, not the working copy (line-ending conversion could differ).
-    $tmp = New-TemporaryFile
-    try {
-        $psi = [System.Diagnostics.ProcessStartInfo]::new('git', @('-C', $Root, 'cat-file', 'blob', "${commit}:$rel"))
-        $psi.RedirectStandardOutput = $true
-        $proc = [System.Diagnostics.Process]::Start($psi)
-        $fs = [System.IO.File]::Create($tmp)
-        $proc.StandardOutput.BaseStream.CopyTo($fs)
-        $fs.Dispose()
-        $proc.WaitForExit()
-        if ($proc.ExitCode -ne 0) { throw "git cat-file failed for ${commit}:$rel" }
-        $hash = (Get-FileHash -Path $tmp -Algorithm SHA256).Hash.ToLowerInvariant()
-        $header = Read-JsfxHeader (Get-Content -Path $tmp -TotalCount 100)
-    }
-    finally {
-        Remove-Item $tmp -Force -ErrorAction SilentlyContinue
-    }
+    # Read the header from the committed blob, which is what the source URL serves.
+    $lines = @(git -C $Root show "${commit}:$rel")
+    if ($LASTEXITCODE -ne 0) { throw "git show failed for ${commit}:$rel" }
+    $header = Read-JsfxHeader ($lines | Select-Object -First 100)
 
     $version = $header['version']
     if (-not $version) { Write-Warning "${name}: no @version in header, skipping"; return $false }
@@ -262,10 +239,14 @@ function Update-Jsfx([xml] $Index, [System.IO.FileInfo] $File, [string] $Repo) {
         [void] (Add-TextElement $meta 'description' (ConvertTo-Rtf $header['about']) -CData)
     }
 
+    $path = ($rel -split '/' | ForEach-Object { [uri]::EscapeDataString($_) }) -join '/'
+    $url = "https://github.com/$Repo/raw/$commit/$path"
+
     $existing = @($pkg.SelectNodes('version') | Where-Object { $_.GetAttribute('name') -eq $version })
     if ($existing.Count -and -not $Force) {
+        # Source URLs pin the commit, so a different commit means the file changed.
         $old = $existing[0].SelectSingleNode('source')
-        if ($old -and $old.GetAttribute('hash') -ne "1220$hash") {
+        if ($old -and $old.InnerText -match '/raw/[0-9a-f]{40}/' -and $old.InnerText -ne $url) {
             Write-Warning "${name}: file changed but version $version is already indexed; bump @version or use -Force"
         }
         else { Write-Host "${name}: version $version already in index, skipping" }
@@ -281,9 +262,7 @@ function Update-Jsfx([xml] $Index, [System.IO.FileInfo] $File, [string] $Repo) {
     [void] $pkg.AppendChild($ver)
     if ($header['changelog']) { [void] (Add-TextElement $ver 'changelog' $header['changelog'] -CData) }
 
-    $path = ($rel -split '/' | ForEach-Object { [uri]::EscapeDataString($_) }) -join '/'
-    $src = Add-TextElement $ver 'source' "https://github.com/$Repo/raw/$commit/$path"
-    $src.SetAttribute('hash', "1220$hash")  # multihash: sha2-256, 32 bytes
+    [void] (Add-TextElement $ver 'source' $url)
     $true
 }
 
