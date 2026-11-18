@@ -17,4 +17,18 @@
       </version>
     </reapack>
   </category>
+  <category name="jsfx">
+    <reapack name="Noteholder" type="effect" desc="Noteholder">
+      <version name="1.0" author="hemisphera" time="2026-11-18T13:07:31Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source hash="1220807cfc837d5dd6a0c5dc785c0a15b45013f35c0ee825976257b442a308a37c90">https://github.com/hemisphera/ReaPack/raw/main/jsfx/Noteholder</source>
+      </version>
+    </reapack>
+    <reapack name="Relativator" type="effect" desc="Relativator">
+      <version name="1.0" author="hemisphera" time="2026-11-18T13:07:31Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source hash="1220d086ee6eb7e2e153bd305b2a1a9dc968223ac464cbbb39949937927203637fab">https://github.com/hemisphera/ReaPack/raw/main/jsfx/Relativator</source>
+      </version>
+    </reapack>
+  </category>
 </index>
