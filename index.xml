@@ -15,6 +15,12 @@
         <source platform="darwin" file="reaper_ReapletonLink.dylib">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.1/reaper_ReapletonLink.dylib</source>
         <source platform="linux64" file="reaper_ReapletonLink.so">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.1/reaper_ReapletonLink.so</source>
       </version>
+      <version name="0.0.2" author="hemisphera" time="2026-11-19T19:29:49Z">
+        <changelog><![CDATA[**Full Changelog**: https://github.com/hemisphera/ReapletonLink/compare/v0.0.1...v0.0.2]]></changelog>
+        <source platform="win64" file="reaper_ReapletonLink.dll">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.2/reaper_ReapletonLink.dll</source>
+        <source platform="darwin" file="reaper_ReapletonLink.dylib">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.2/reaper_ReapletonLink.dylib</source>
+        <source platform="linux64" file="reaper_ReapletonLink.so">https://github.com/hemisphera/ReapletonLink/releases/download/v0.0.2/reaper_ReapletonLink.so</source>
+      </version>
     </reapack>
     <reapack name="reaper_Hulp.ext" type="extension" desc="Hulp">
       <metadata>
